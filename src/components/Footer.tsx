@@ -3,26 +3,29 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-interface SocialLinkItem {
+interface SocialIconItem {
   name: string;
   href: string;
-  svgIcon: React.ReactNode;
+  svg: React.ReactNode;
 }
 
 export default function Footer() {
+  const [mounted, setMounted] = useState(false);
   const [year, setYear] = useState<number | string>("—");
 
+  // Mount isolation blocks the layout from throwing SSR hydration mismatches
   useEffect(() => {
+    setMounted(true);
     setYear(new Date().getFullYear());
   }, []);
 
-  const socialLinks: SocialLinkItem[] = [
+  const iconsOnlyList: SocialIconItem[] = [
     {
       name: "LinkedIn",
       href: "https://www.linkedin.com/in/r-bharathi-kumar-186237195/",
-      svgIcon: (
+      svg: (
         <svg
-          className="w-3.5 h-3.5"
+          className="w-6 h-6 md:w-7 md:h-7"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -37,10 +40,10 @@ export default function Footer() {
     },
     {
       name: "GitHub",
-      href: "https://github.com/LLC-Fasty",
-      svgIcon: (
+      href: "https://github.com/R-Bharathi-Kumar",
+      svg: (
         <svg
-          className="w-3.5 h-3.5"
+          className="w-6 h-6 md:w-7 md:h-7"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -56,9 +59,9 @@ export default function Footer() {
     {
       name: "Instagram",
       href: "https://www.instagram.com/fasty_kumar",
-      svgIcon: (
+      svg: (
         <svg
-          className="w-3.5 h-3.5"
+          className="w-6 h-6 md:w-7 md:h-7"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -75,78 +78,97 @@ export default function Footer() {
     },
   ];
 
+  if (!mounted) {
+    return (
+      <footer className="bg-neutral-950 min-h-[40vh] border-t border-neutral-900 w-full" />
+    );
+  }
+
   return (
-    <footer className="bg-neutral-950 text-neutral-100 py-24 px-6 md:px-12 border-t border-neutral-900 relative overflow-hidden">
+    <footer className="bg-neutral-950 text-white py-20 px-6 md:px-12 border-t border-neutral-900 relative overflow-hidden">
+      {/* INFINITE RUNNING TEXT RIBBON */}
       <div className="absolute top-0 left-0 w-full overflow-hidden opacity-[0.015] pointer-events-none select-none z-0">
         <motion.div
           animate={{ x: [0, -1200] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="text-[16vw] font-black uppercase italic whitespace-nowrap tracking-tighter"
+          transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+          className="text-[14vw] font-black uppercase italic whitespace-nowrap tracking-tighter py-2"
         >
-          BUILD DESIGN DEPLOY CODES — BUILD DESIGN DEPLOY CODES —
+          DISCOVER ARCHITECT PRODUCE DEPLOY SYSTEM — DISCOVER ARCHITECT PRODUCE
+          DEPLOY SYSTEM —
         </motion.div>
       </div>
 
+      {/* Ambient Radial Background Dot Mesh */}
       <div className="absolute inset-0 bg-[radial-gradient(#1f1f1f_1px,transparent_1px)] bg-size-[24px_24px] pointer-events-none opacity-40 z-0" />
 
-      <div className="md:container mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24 items-start">
-          <div className="lg:col-span-7 space-y-4">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-500 block italic">
-              Project Scoping Available // 2026 Season
+      {/* Frame boundary optimized via canonical structural constraints */}
+      <div className="md:container mx-auto relative z-10 flex flex-col gap-16">
+        {/* UPPER ROW: Massive Minimal Call to Action Layout */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 border-b border-neutral-900 pb-16">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono tracking-[0.4em] text-neutral-500 uppercase block font-black">
+              // Project Scope Open
             </span>
-
-            <motion.div
-              whileHover={{ scale: 0.995 }}
-              className="inline-block group"
-            >
-              <a
-                href="mailto:rbharathikumar27@gmail.com"
-                className="text-[10vw] lg:text-[5.5vw] font-black italic uppercase tracking-tighter leading-none hover:text-neutral-300 transition-colors duration-500 block text-white"
-              >
-                Let's Connect<span className="text-neutral-500">.</span>
-              </a>
-              <div className="h-0.75 bg-white w-12 group-hover:w-full transition-all duration-500 ease-out mt-3" />
-            </motion.div>
-          </div>
-
-          <div className="lg:col-span-5 lg:text-right space-y-2 lg:pt-4">
-            <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-1">
-              Primary Communications Inbox
-            </p>
             <a
               href="mailto:rbharathikumar27@gmail.com"
-              className="text-lg md:text-2xl font-black hover:text-neutral-300 underline underline-offset-8 decoration-neutral-800 hover:decoration-white transition-all tracking-wider text-white italic"
+              className="text-4xl md:text-7xl font-black italic uppercase tracking-tighter hover:text-neutral-400 transition-colors duration-500 flex items-center gap-4 group"
+            >
+              Get In Touch{" "}
+              <ArrowUpRight
+                size={32}
+                className="text-neutral-700 group-hover:text-white group-hover:rotate-45 transition-all duration-300"
+              />
+            </a>
+          </div>
+
+          <div className="space-y-1">
+            <span className="text-[9px] font-mono tracking-widest text-neutral-500 uppercase block font-black">
+              // Unified Primary Node
+            </span>
+            <a
+              href="mailto:rbharathikumar27@gmail.com"
+              className="text-md md:text-xl font-black text-neutral-300 hover:text-white transition-colors tracking-wide italic block font-mono"
             >
               rbharathikumar27@gmail.com
             </a>
           </div>
         </div>
 
-        <div className="border-t border-neutral-800 pt-10 flex flex-col md:flex-row gap-8 justify-between items-center">
-          <div className="flex flex-wrap gap-8">
-            {socialLinks.map((social) => (
+        {/* LOWER ROW: Icon-Only HUD Deck Matrix Block */}
+        <div className="flex flex-col sm:flex-row gap-8 justify-between items-center select-none">
+          {/* Brand Shorthand Initials */}
+          <div className="text-left font-mono">
+            <span className="text-sm font-black uppercase tracking-[0.3em] text-white italic">
+              RBK<span className="text-neutral-600">.</span>
+            </span>
+            <span className="text-[9px] block text-neutral-500 uppercase tracking-widest mt-0.5 font-bold">
+              Product Engineer Edition
+            </span>
+          </div>
+
+          {/* ICON-ONLY INTERACTIVE PLATFORM BUTTONS */}
+          <div className="flex items-center gap-4">
+            {iconsOnlyList.map((icon) => (
               <a
-                key={social.name}
-                href={social.href}
+                key={icon.name}
+                href={icon.href}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-neutral-300 hover:text-white transition-colors duration-300 group select-none"
+                aria-label={icon.name}
+                className="p-4 rounded-xl border border-neutral-900 bg-neutral-900/40 text-neutral-400 hover:text-white hover:border-neutral-700 hover:bg-neutral-900 transition-all duration-300 hover:scale-110 active:scale-95 shadow-md group relative"
               >
-                <div className="text-neutral-500 group-hover:text-white transition-colors duration-300">
-                  {social.svgIcon}
-                </div>
-                <span>{social.name}</span>
-                <ArrowUpRight
-                  size={12}
-                  className="text-neutral-600 group-hover:text-white group-hover:rotate-45 transition-all duration-300"
-                />
+                {/* Tooltip bubble that slides into visibility upon active cursor hover triggers */}
+                <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-black text-[9px] font-mono font-bold px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none uppercase tracking-widest">
+                  {icon.name}
+                </span>
+                {icon.svg}
               </a>
             ))}
           </div>
 
-          <div className="text-[10px] font-mono tracking-widest text-neutral-400 font-bold uppercase select-none">
-            © {year} — R Bharathi Kumar
+          {/* High Contrast Copyright System String */}
+          <div className="text-[10px] font-mono tracking-widest text-neutral-400 font-bold uppercase md:text-right">
+            © {year} — ALL RIGHTS RESERVED
           </div>
         </div>
       </div>
